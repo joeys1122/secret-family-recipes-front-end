@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Recipes from './components/Recipes';
+import RecipeDetails from './components/RecipeDetails';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
@@ -24,6 +25,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Recipes/>
+              </PrivateRoute>
+            }
+          />
+          <Route 
+            exact path='/recipes/:recipe_id' 
+            element={
+              <PrivateRoute>
+                <RecipeDetails/>
               </PrivateRoute>
             }
           />

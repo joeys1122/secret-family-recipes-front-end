@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import RecipeDetails from "./RecipeDetails";
 
 function Recipe(props) {
@@ -12,8 +13,9 @@ function Recipe(props) {
   return(
     <div>
       <p>Recipe: {title} By: {source}</p>
-      <button onClick={showDetails}>View</button>
-      {details && <RecipeDetails recipe_id={recipe_id}/>}
+      <Link to={`/recipes/${recipe_id}`}>View</Link>
+      {/* <button onClick={showDetails}>View</button>
+      {details && <RecipeDetails key={recipe_id} recipe_id={recipe_id}/>} */}
     </div>
   )
 }
