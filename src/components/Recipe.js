@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import RecipeDetails from "./RecipeDetails";
+import { Col, Card } from "react-bootstrap";
 
 function Recipe(props) {
   const { recipe_id, title, source } = props.recipe;
-  const [ details, setDetails ] = useState(false);
-
-  const showDetails = () => {
-    setDetails(!details);
-  }
 
   return(
-    <div>
-      <p>Recipe: {title} By: {source}</p>
-      <Link to={`/recipes/${recipe_id}`}>View</Link>
-      {/* <button onClick={showDetails}>View</button>
-      {details && <RecipeDetails key={recipe_id} recipe_id={recipe_id}/>} */}
-    </div>
+    <Col>
+      <Card>
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Subtitle>By {source}</Card.Subtitle>
+          <Link to={`/recipes/${recipe_id}`}>View</Link>
+        </Card.Body>
+      </Card>
+    </Col>
   )
 }
 

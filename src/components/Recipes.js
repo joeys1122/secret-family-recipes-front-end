@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../utils/auth";
 import Recipe from "./Recipe";
+import { Container, Row } from "react-bootstrap";
 
 function Recipes() {
   const [ recipes, setRecipes ] = useState([]);
@@ -12,11 +13,13 @@ function Recipes() {
   }, [])
 
   return(
-    <div>
-      {recipes.map(recipe => {
-        return(<Recipe key={recipe.recipe_id} recipe={recipe}/>)
-      })}
-    </div>
+    <Container>
+      <Row xs={1} md={2}>
+        {recipes.map(recipe => {
+          return(<Recipe key={recipe.recipe_id} recipe={recipe}/>)
+        })}
+      </Row>
+    </Container>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/auth";
+import { Container } from "react-bootstrap";
 
 function RecipeDetails(props) {
   const { recipe_id } = useParams();
@@ -19,9 +20,9 @@ function RecipeDetails(props) {
       })
       .catch(err => console.log(err))
   }, [])
-  console.log(details)
+
   return(
-    <div>
+    <Container>
       <h2>{details.title} By {details.source}</h2>
       <h3>Ingredients:</h3>
       {ingredients.map(ing => {
@@ -35,7 +36,7 @@ function RecipeDetails(props) {
       {categories.map(cate => {
         return(<p>{cate.category_name}</p>)
       })}
-    </div>
+    </Container>
   )
 }
 

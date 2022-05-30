@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { Container, Form, Button } from 'react-bootstrap';
 
 function Login(props) {
   const navigate = useNavigate();
@@ -28,26 +29,19 @@ function Login(props) {
   }
 
   return(
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input 
-          type='text' 
-          name='username' 
-          onChange={handleChange} 
-          value={credentials.username}
-        />
-        <label>Password</label>
-        <input 
-          type='password' 
-          name='password' 
-          onChange={handleChange} 
-          value={credentials.password}
-        />
-        <button>Login</button>
-      </form>
-    </div>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>Username</Form.Label>
+          <Form.Control type='text' name='username' onChange={handleChange} value={credentials.username} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Password</Form.Label>
+          <Form.Control type='password' name='password' onChange={handleChange} value={credentials.password} />
+        </Form.Group>
+        <Button variant='primary' type='submit'>Login</Button>
+      </Form>
+    </Container>
   )
 }
 
