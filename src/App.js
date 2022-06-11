@@ -1,14 +1,18 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+
+import { isLogin, logout } from './utils/auth';
 
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Recipes from './components/Recipes';
 import RecipeDetails from './components/RecipeDetails';
+import AddRecipe from './components/AddRecipe';
+
 import PrivateRoute from './components/PrivateRoute';
 
-import { Navbar, Nav, Container, Col, Row, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Col, Row, Button, ButtonGroup } from 'react-bootstrap';
 
 function App() {
   return(
@@ -19,16 +23,26 @@ function App() {
             <Navbar.Brand href='/'>Secret Family Recipes</Navbar.Brand>
             <Nav>
               <Nav.Link href='/recipes'>Recipes</Nav.Link>
+              <Nav.Link href='/add-recipe'>Add Recipe</Nav.Link>
             </Nav>
-            <Nav>
+            <ButtonGroup>
               <Button href='/login'>Login</Button>
               <Button href='/signup'>Signup</Button>
-            </Nav>
+              {isLogin() && <Button onClick={logout} href='/'>Logout</Button>}
+            </ButtonGroup>
           </Container>
         </Navbar>
       </header>
 
       <Routes>
+        <Route 
+          exact path='/add-recipe' 
+          element={
+            <PrivateRoute>
+              <AddRecipe/>
+            </PrivateRoute>
+          }
+        />
         <Route 
           exact path='/recipes' 
           element={
@@ -51,7 +65,7 @@ function App() {
       </Routes>
 
       <footer>
-        <Container>
+        <Container className='mt-5'>
           <Row>
             <Col sm={8}>Footer</Col>
             <Col sm={4}></Col>

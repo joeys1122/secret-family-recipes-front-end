@@ -19,7 +19,7 @@ function RecipeDetails(props) {
         setCategories(res.data.categories);
       })
       .catch(err => console.log(err))
-  }, [])
+  }, []) // eslint-disable-line
 
   return(
     <Container>
