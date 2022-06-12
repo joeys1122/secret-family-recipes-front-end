@@ -25,11 +25,12 @@ function App() {
               <Nav.Link href='/recipes'>Recipes</Nav.Link>
               <Nav.Link href='/add-recipe'>Add Recipe</Nav.Link>
             </Nav>
+            {isLogin() ? 
+            <Button onClick={logout} href='/'>Logout</Button> :
             <ButtonGroup>
               <Button href='/login'>Login</Button>
               <Button href='/signup'>Signup</Button>
-              {isLogin() && <Button onClick={logout} href='/'>Logout</Button>}
-            </ButtonGroup>
+            </ButtonGroup>}
           </Container>
         </Navbar>
       </header>
