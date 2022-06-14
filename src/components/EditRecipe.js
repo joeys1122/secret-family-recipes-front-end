@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../utils/auth";
-import { Container, Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function EditRecipe(props) {
-  const { recipe_id, showEdit, handleEdit} = props;
+  const { recipe_id, showEdit, handleEdit } = props;
+
+  const navigate = useNavigate();
 
   const [ recipe, setRecipe ] = useState({
     title: '',
@@ -19,7 +22,7 @@ function EditRecipe(props) {
         setRecipe(res.data);
       })
       .catch(err => console.log(err))
-  }, [])
+  }, []) //eslint-disable-line
 
   const handleChange = e => {
     setRecipe({
@@ -31,21 +34,51 @@ function EditRecipe(props) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    console.log(recipe);
-    handleEdit();
+    console.log(recipe)
+
+    axiosWithAuth().put(`recipes/${recipe_id}`, recipe)
+      .then(res => {
+        handleEdit();
+        navigate(`/recipes`)
+      })
+      .catch(err => console.log(err));
   };
 
   const instructionChange = (name, value, index) => {
     let newIns = [...recipe.instructions];
-    let newInstruction = {...newIns[index]};
-    newInstruction[name] = value;
-    newIns[index] = newInstruction;
+    let newItem = {...newIns[index]};
+    newItem[name] = value;
+    newIns[index] = newItem;
 
     setRecipe({
       ...recipe,
       instructions: [...newIns]
     });
-  }
+  };
+
+  const ingredientChange = (name, value, index) => {
+    let newIngs = [...recipe.ingredients];
+    let newItem = {...newIngs[index]};
+    newItem[name] = value;
+    newIngs[index] = newItem;
+
+    setRecipe({
+      ...recipe,
+      ingredients: [...newIngs]
+    });
+  };
+
+  const categoryChange = (name, value, index) => {
+    let newCats = [...recipe.categories];
+    let newItem = {...newCats[index]};
+    newItem[name] = value;
+    newCats[index] = newItem;
+
+    setRecipe({
+      ...recipe,
+      categories: [...newCats]
+    });
+  };
 
   return(
     <Modal show={showEdit} onHide={handleEdit} centered>
@@ -75,24 +108,31 @@ function EditRecipe(props) {
                 </>
               );
             })}
+            <Button size='sm' >Add Instruction</Button>
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Ingredients:</Form.Label>
-            {recipe.ingredients.map(ing => {
-              return(<p>{ing.ingredient_name}</p>);
+            {recipe.ingredients.map((ing, index) => {
+              return(
+                <>
+                  <Form.Control type='text' name='ingredient_name' onChange={(e) => ingredientChange(e.target.name, e.target.value, index)} value={ing.ingredient_name} />
+                </>
+              );
             })}
-            {/* <Form.Control type='text' name='ingredient_name' onChange={ingredientChange} value={ingredient.ingredient_name} />
-            <Button size="sm" onClick={ingredientSubmit}>Add Ingredient</Button> */}
+            <Button size='sm' >Add Ingredient</Button>
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Categories:</Form.Label>
-            {recipe.categories.map(cat => {
-              return(<p>{cat.category_name}</p>);
+            {recipe.categories.map((cat, index) => {
+              return(
+                <>
+                  <Form.Control type='text' name='category_name' onChange={(e) => categoryChange(e.target.name, e.target.value, index)} value={cat.category_name} />
+                </>
+              );
             })}
-            {/* <Form.Control type='text' name='category_name' onChange={categoryChange} value={category.category_name} />
-            <Button size="sm" onClick={categorySubmit}>Add Categories</Button> */}
+            <Button size='sm' >Add Category</Button>
           </Form.Group>
         </Form>
       </Modal.Body>
