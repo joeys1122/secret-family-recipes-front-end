@@ -12,7 +12,7 @@ import AddRecipe from './components/AddRecipe';
 
 import PrivateRoute from './components/PrivateRoute';
 
-import { Navbar, Nav, Container, Col, Row, Button, ButtonGroup } from 'react-bootstrap';
+import { Navbar, Nav, Container, Col, Button, ButtonGroup } from 'react-bootstrap';
 
 function App() {
   return(
@@ -65,14 +65,22 @@ function App() {
         <Route exact path='/' element={<Home/>}/>
       </Routes>
 
-      <footer>
-        <Container className='mt-5'>
-          <Row>
-            <Col sm={8}>Footer</Col>
-            <Col sm={4}></Col>
-          </Row>
-        </Container>
-      </footer>
+      <Container>
+        <footer className="d-flex justify-content-between align-items-center py-3 my-4 border-top">
+          <Col>
+            <span className="text-muted">Created by Joe Stanton</span>
+          </Col>
+          <Nav className="col-md-4 justify-content-end d-flex">
+            <Nav.Link href="https://www.linkedin.com/in/joseph-c-stanton/" target="_blank">
+              <i class="bi bi-linkedin text-muted"/>
+            </Nav.Link>
+            <Nav.Link href="https://github.com/joeys1122" target="_blank">
+              <i class="bi bi-github text-muted"/>
+            </Nav.Link>
+          </Nav>
+        </footer>
+      </Container>
+
     </div>
   )
 }
