@@ -6,7 +6,7 @@ function Recipe(props) {
   const { recipe_id, title, source } = props.recipe;
 
   return(
-    <Col>
+    <Col className="text-center">
       <Card>
         <Card.Body>
           <Card.Title>{title}</Card.Title>

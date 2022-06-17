@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../utils/auth";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function EditRecipe(props) {
@@ -33,8 +33,6 @@ function EditRecipe(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    console.log(recipe)
 
     axiosWithAuth().put(`recipes/${recipe_id}`, recipe)
       .then(res => {
@@ -88,52 +86,62 @@ function EditRecipe(props) {
 
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label>Title:</Form.Label>
-            <Form.Control type='text' name='title' onChange={handleChange} value={recipe.title} />
-          </Form.Group>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>Recipe Name</Form.Label>
+              <Form.Control type='text' name='title' onChange={handleChange} value={recipe.title}/>
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Source:</Form.Label>
-            <Form.Control type='text' name='source' onChange={handleChange} value={recipe.source} />
-          </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>Recipe Creator</Form.Label>
+              <Form.Control type='text' name='source' onChange={handleChange} value={recipe.source}/>
+            </Form.Group>
+          </Row>
 
-          <Form.Group>
-            <Form.Label>Instructions:</Form.Label>
+          <Row className="mb-3">
+            <h5 className="mb-2">Edit Instructions</h5>
             {recipe.instructions.map((ins, index) => {
               return(
-                <>
-                  <Form.Control type='number' name='instruction_step' onChange={(e) => instructionChange(e.target.name, e.target.value, index)} value={ins.instruction_step} />
-                  <Form.Control type='text' name='instruction_name' onChange={(e) => instructionChange(e.target.name, e.target.value, index)} value={ins.instruction_name} />
-                </>
+                <Row>
+                  <Form.Group as={Col}>
+                    <Form.Control type='number' name='instruction_step' onChange={(e) => instructionChange(e.target.name, e.target.value, index)} value={ins.instruction_step} />
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                    <Form.Control type='text' name='instruction_name' onChange={(e) => instructionChange(e.target.name, e.target.value, index)} value={ins.instruction_name} />
+                  </Form.Group>
+                  
+                  
+                </Row>
               );
             })}
-            <Button size='sm' >Add Instruction</Button>
-          </Form.Group>
+          </Row>
 
-          <Form.Group>
-            <Form.Label>Ingredients:</Form.Label>
+          <Row className="mb-3">
+            <h5 className="mb-2">Edit Ingredients</h5>
             {recipe.ingredients.map((ing, index) => {
               return(
-                <>
-                  <Form.Control type='text' name='ingredient_name' onChange={(e) => ingredientChange(e.target.name, e.target.value, index)} value={ing.ingredient_name} />
-                </>
+                <Row>
+                  <Form.Group as={Col}>
+                    <Form.Control type='text' name='ingredient_name' onChange={(e) => ingredientChange(e.target.name, e.target.value, index)} value={ing.ingredient_name} />
+                  </Form.Group>
+                </Row>
               );
             })}
-            <Button size='sm' >Add Ingredient</Button>
-          </Form.Group>
+          </Row>
 
-          <Form.Group>
-            <Form.Label>Categories:</Form.Label>
+          <Row className="mb-3">
+            <h5 className="mb-2">Edit Categories</h5>
             {recipe.categories.map((cat, index) => {
               return(
-                <>
-                  <Form.Control type='text' name='category_name' onChange={(e) => categoryChange(e.target.name, e.target.value, index)} value={cat.category_name} />
-                </>
+                <Row>
+                  <Form.Group as={Col}>
+                    <Form.Control type='text' name='category_name' onChange={(e) => categoryChange(e.target.name, e.target.value, index)} value={cat.category_name} />
+                  </Form.Group>
+                </Row>
               );
             })}
-            <Button size='sm' >Add Category</Button>
-          </Form.Group>
+          </Row>
         </Form>
       </Modal.Body>
 

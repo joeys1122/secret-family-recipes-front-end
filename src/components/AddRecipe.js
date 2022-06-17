@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { axiosWithAuth } from "../utils/auth";
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col, ListGroup, InputGroup } from 'react-bootstrap';
 
 function AddRecipe() {
   const navigate = useNavigate();
@@ -94,47 +94,78 @@ function AddRecipe() {
   };
 
   return(
-    <Container>
+    <Container className="pt-5 mt-5">
+      <h2 className="text-center mb-5">Add New Recipe</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label>Title:</Form.Label>
-          <Form.Control type='text' name='title' onChange={handleChange} value={recipe.title} />
-        </Form.Group>
+        <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label>Recipe Name</Form.Label>
+            <Form.Control type='text' name='title' onChange={handleChange} value={recipe.title} placeholder="Enter Recipe Name"/>
+          </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Source:</Form.Label>
-          <Form.Control type='text' name='source' onChange={handleChange} value={recipe.source} />
-        </Form.Group>
+          <Form.Group as={Col}>
+            <Form.Label>Recipe Creator</Form.Label>
+            <Form.Control type='text' name='source' onChange={handleChange} value={recipe.source} placeholder="Enter Recipe Creator"/>
+          </Form.Group>
+        </Row>
 
-        <Form.Group>
-          <Form.Label>Instructions:</Form.Label>
-          {recipe.instructions.map(ins => {
-            return(<p>{ins.instruction_step}. {ins.instruction_name}</p>);
-          })}
-          <Form.Control type='number' name='instruction_step' onChange={instructionChange} value={instruction.instruction_step} placeholder='Enter Instruction Step Number' />
-          <Form.Control type='text' name='instruction_name' onChange={instructionChange} value={instruction.instruction_name} placeholder='Enter Instruction Name' />
-          <Button size="sm" onClick={instructionSubmit}>Add Instruction</Button>
-        </Form.Group>
+        <Row>
+          <ListGroup className="my-3">
+            <ListGroup.Item variant="primary">Instructions</ListGroup.Item>
+            {recipe.instructions.map(ins => {
+              return(<ListGroup.Item>{ins.instruction_step}. {ins.instruction_name}</ListGroup.Item>);
+            })}
+          </ListGroup>
 
-        <Form.Group>
-          <Form.Label>ingredients:</Form.Label>
-          {recipe.ingredients.map(ing => {
-            return(<p>{ing.ingredient_name}</p>);
-          })}
-          <Form.Control type='text' name='ingredient_name' onChange={ingredientChange} value={ingredient.ingredient_name} />
-          <Button size="sm" onClick={ingredientSubmit}>Add Ingredient</Button>
-        </Form.Group>
+          <Form.Group as={Col}>
+            <Form.Label>Instruction Step</Form.Label>
+            <Form.Control type='number' name='instruction_step' onChange={instructionChange} value={instruction.instruction_step} placeholder='Enter Instruction Step Number' />
+          </Form.Group>
 
-        <Form.Group>
-          <Form.Label>categories:</Form.Label>
-          {recipe.categories.map(cat => {
-            return(<p>{cat.category_name}</p>);
-          })}
-          <Form.Control type='text' name='category_name' onChange={categoryChange} value={category.category_name} />
-          <Button size="sm" onClick={categorySubmit}>Add Categories</Button>
-        </Form.Group>
+          <Form.Group as={Col} className="mb-3">
+            <Form.Label>Instruction Description</Form.Label>
+            <InputGroup>
+              <Form.Control type='text' name='instruction_name' onChange={instructionChange} value={instruction.instruction_name} placeholder='Enter Instruction Description' />
+              <Button size="sm" variant="outline-primary" onClick={instructionSubmit}>Add Instruction</Button>
+            </InputGroup>
+          </Form.Group>
+        </Row>
 
-        <Button size="lg" className='mt-5' type="submit">Submit</Button>
+        <Row>
+          <ListGroup className="my-3">
+            <ListGroup.Item variant="primary">Ingredients</ListGroup.Item>
+            {recipe.ingredients.map(ing => {
+              return(<ListGroup.Item>{ing.ingredient_name}</ListGroup.Item>);
+            })}
+          </ListGroup>
+
+          <Form.Group as={Col} className="mb-3">
+            <Form.Label>Ingredient Name</Form.Label>
+            <InputGroup>
+              <Form.Control type='text' name='ingredient_name' onChange={ingredientChange} value={ingredient.ingredient_name} placeholder='Enter Ingredient Name'/>
+              <Button size="sm" variant="outline-primary" onClick={ingredientSubmit}>Add Ingredient</Button>
+            </InputGroup>
+          </Form.Group>
+        </Row>
+
+        <Row>
+          <ListGroup className="my-3">
+            <ListGroup.Item variant="primary">Categories</ListGroup.Item>
+            {recipe.categories.map(cat => {
+              return(<ListGroup.Item>{cat.category_name}</ListGroup.Item>);
+            })}
+          </ListGroup>
+
+          <Form.Group as={Col} className="mb-3">
+            <Form.Label>Category Name</Form.Label>
+            <InputGroup>
+              <Form.Control type='text' name='category_name' onChange={categoryChange} value={category.category_name} placeholder='Enter Category Name'/>
+              <Button size="sm" variant="outline-primary" onClick={categorySubmit}>Add Categories</Button>
+            </InputGroup>
+          </Form.Group>
+        </Row>
+
+        <Button size="lg" className='d-block m-auto my-5 w-25' type="submit">Submit</Button>
       </Form>
     </Container>
   )

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { isLogin, logout } from './utils/auth';
 
@@ -12,25 +13,38 @@ import AddRecipe from './components/AddRecipe';
 
 import PrivateRoute from './components/PrivateRoute';
 
-import { Navbar, Nav, Container, Col, Button, ButtonGroup } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, ButtonGroup } from 'react-bootstrap';
 
 function App() {
+  const navigate = useNavigate();
+
   return(
     <div className="App">
-      <header>
-        <Navbar bg='dark' variant='dark'>
+      <header className='fixed-top'>
+        <Navbar bg='dark' variant='dark' >
           <Container>
-            <Navbar.Brand href='/'>Secret Family Recipes</Navbar.Brand>
-            <Nav>
-              <Nav.Link href='/recipes'>Recipes</Nav.Link>
-              <Nav.Link href='/add-recipe'>Add Recipe</Nav.Link>
+            <Navbar.Brand>Secret Family Recipes</Navbar.Brand>
+            <Nav className='flex-grow-1'>
+              <Nav.Link onClick={() => navigate('/')}>Home</Nav.Link>
+              <Nav.Link onClick={() => navigate('/recipes')}>Recipes</Nav.Link>
             </Nav>
+
+            <Nav className='me-4'>
+              <Nav.Link href="https://www.linkedin.com/in/joseph-c-stanton/" target="_blank">
+                <i className="bi bi-linkedin text-muted"/>
+              </Nav.Link>
+              <Nav.Link href="https://github.com/joeys1122" target="_blank">
+                <i className="bi bi-github text-muted"/>
+              </Nav.Link>
+            </Nav>
+
             {isLogin() ? 
             <Button onClick={logout} href='/'>Logout</Button> :
             <ButtonGroup>
               <Button href='/login'>Login</Button>
               <Button href='/signup'>Signup</Button>
             </ButtonGroup>}
+
           </Container>
         </Navbar>
       </header>
@@ -64,23 +78,6 @@ function App() {
         <Route exact path='/signup' element={<Signup/>}/>
         <Route exact path='/' element={<Home/>}/>
       </Routes>
-
-      <Container>
-        <footer className="d-flex justify-content-between align-items-center py-3 my-4 border-top">
-          <Col>
-            <span className="text-muted">Created by Joe Stanton</span>
-          </Col>
-          <Nav className="col-md-4 justify-content-end d-flex">
-            <Nav.Link href="https://www.linkedin.com/in/joseph-c-stanton/" target="_blank">
-              <i class="bi bi-linkedin text-muted"/>
-            </Nav.Link>
-            <Nav.Link href="https://github.com/joeys1122" target="_blank">
-              <i class="bi bi-github text-muted"/>
-            </Nav.Link>
-          </Nav>
-        </footer>
-      </Container>
-
     </div>
   )
 }

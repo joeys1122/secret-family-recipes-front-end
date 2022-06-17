@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/auth";
-import { Container, ButtonGroup, Button } from "react-bootstrap";
+import { Container, ButtonGroup, Button, ListGroup, Badge, Tabs, Tab } from "react-bootstrap";
 import EditRecipe from "./EditRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 
@@ -30,24 +30,36 @@ function RecipeDetails(props) {
   const handleDelete = () => setShowDelete(!showDelete);
 
   return(
-    <Container>
-      <h2>{details.title} By {details.source}</h2>
-      <ButtonGroup>
-        <Button onClick={handleEdit}>Edit</Button>
-        <Button onClick={handleDelete}>Delete</Button>
+    <Container className="pt-5 mt-5 text-center">
+      <Container className="border">
+        <h2 className="my-3">{details.title} - {details.source}</h2>
+
+        <Tabs defaultActiveKey="instructions" className="justify-content-center mb-3">
+          <Tab eventKey="instructions" title="Instructions">
+            {instructions.map(ins => {
+              return(<p>{ins.instruction_step}: {ins.instruction_name}</p>)
+            })} 
+          </Tab>
+          <Tab eventKey="ingredients" title="Ingredients">
+            {ingredients.map(ing => {
+              return(<p>{ing.ingredient_name}</p>)
+            })}
+          </Tab>
+        </Tabs>
+
+        <Container className="d-block">
+          {categories.map(cate => {
+            return(<Badge className="me-2 my-3">{cate.category_name}</Badge>)
+          })}
+        </Container>
+
+      </Container>
+
+      <ButtonGroup className="mt-5">
+        <Button onClick={handleEdit}>Edit Recipe</Button>
+        <Button onClick={handleDelete}>Delete Recipe</Button>
       </ButtonGroup>
-      <h3>Instructions:</h3>
-      {instructions.map(ins => {
-        return(<p>{ins.instruction_step}: {ins.instruction_name}</p>)
-      })}
-      <h3>Ingredients:</h3>
-      {ingredients.map(ing => {
-        return(<p>{ing.ingredient_name}</p>)
-      })}
-      <h3>Categories:</h3>
-      {categories.map(cate => {
-        return(<p>{cate.category_name}</p>)
-      })}
+
       {showEdit && <EditRecipe recipe_id={recipe_id} showEdit={showEdit} handleEdit={handleEdit} />}
       {showDelete && <DeleteRecipe recipe_id={recipe_id} showDelete={showDelete} handleDelete={handleDelete} details={details} />}
     </Container>
