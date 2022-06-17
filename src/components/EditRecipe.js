@@ -102,7 +102,7 @@ function EditRecipe(props) {
             <h5 className="mb-2">Edit Instructions</h5>
             {recipe.instructions.map((ins, index) => {
               return(
-                <Row>
+                <Row key={Math.random()}>
                   <Form.Group as={Col}>
                     <Form.Control type='number' name='instruction_step' onChange={(e) => instructionChange(e.target.name, e.target.value, index)} value={ins.instruction_step} />
                   </Form.Group>
@@ -110,8 +110,6 @@ function EditRecipe(props) {
                   <Form.Group as={Col}>
                     <Form.Control type='text' name='instruction_name' onChange={(e) => instructionChange(e.target.name, e.target.value, index)} value={ins.instruction_name} />
                   </Form.Group>
-                  
-                  
                 </Row>
               );
             })}
@@ -121,7 +119,7 @@ function EditRecipe(props) {
             <h5 className="mb-2">Edit Ingredients</h5>
             {recipe.ingredients.map((ing, index) => {
               return(
-                <Row>
+                <Row key={Math.random()}>
                   <Form.Group as={Col}>
                     <Form.Control type='text' name='ingredient_name' onChange={(e) => ingredientChange(e.target.name, e.target.value, index)} value={ing.ingredient_name} />
                   </Form.Group>
@@ -134,7 +132,7 @@ function EditRecipe(props) {
             <h5 className="mb-2">Edit Categories</h5>
             {recipe.categories.map((cat, index) => {
               return(
-                <Row>
+                <Row key={Math.random()}>
                   <Form.Group as={Col}>
                     <Form.Control type='text' name='category_name' onChange={(e) => categoryChange(e.target.name, e.target.value, index)} value={cat.category_name} />
                   </Form.Group>

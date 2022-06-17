@@ -113,7 +113,7 @@ function AddRecipe() {
           <ListGroup className="my-3">
             <ListGroup.Item variant="primary">Instructions</ListGroup.Item>
             {recipe.instructions.map(ins => {
-              return(<ListGroup.Item>{ins.instruction_step}. {ins.instruction_name}</ListGroup.Item>);
+              return(<ListGroup.Item key={Date.now()}>{ins.instruction_step}. {ins.instruction_name}</ListGroup.Item>);
             })}
           </ListGroup>
 
@@ -135,7 +135,7 @@ function AddRecipe() {
           <ListGroup className="my-3">
             <ListGroup.Item variant="primary">Ingredients</ListGroup.Item>
             {recipe.ingredients.map(ing => {
-              return(<ListGroup.Item>{ing.ingredient_name}</ListGroup.Item>);
+              return(<ListGroup.Item key={Date.now()}>{ing.ingredient_name}</ListGroup.Item>);
             })}
           </ListGroup>
 
@@ -152,7 +152,7 @@ function AddRecipe() {
           <ListGroup className="my-3">
             <ListGroup.Item variant="primary">Categories</ListGroup.Item>
             {recipe.categories.map(cat => {
-              return(<ListGroup.Item>{cat.category_name}</ListGroup.Item>);
+              return(<ListGroup.Item key={Date.now()}>{cat.category_name}</ListGroup.Item>);
             })}
           </ListGroup>
 

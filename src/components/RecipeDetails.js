@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/auth";
-import { Container, ButtonGroup, Button, ListGroup, Badge, Tabs, Tab } from "react-bootstrap";
+import { Container, ButtonGroup, Button, Badge, Tabs, Tab } from "react-bootstrap";
 import EditRecipe from "./EditRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 
@@ -37,19 +37,19 @@ function RecipeDetails(props) {
         <Tabs defaultActiveKey="instructions" className="justify-content-center mb-3">
           <Tab eventKey="instructions" title="Instructions">
             {instructions.map(ins => {
-              return(<p>{ins.instruction_step}: {ins.instruction_name}</p>)
+              return(<p key={Math.random()}>{ins.instruction_step}: {ins.instruction_name}</p>)
             })} 
           </Tab>
           <Tab eventKey="ingredients" title="Ingredients">
             {ingredients.map(ing => {
-              return(<p>{ing.ingredient_name}</p>)
+              return(<p key={Math.random()}>{ing.ingredient_name}</p>)
             })}
           </Tab>
         </Tabs>
 
         <Container className="d-block">
           {categories.map(cate => {
-            return(<Badge className="me-2 my-3">{cate.category_name}</Badge>)
+            return(<Badge className="me-2 my-3" key={Math.random()}>{cate.category_name}</Badge>)
           })}
         </Container>
 
