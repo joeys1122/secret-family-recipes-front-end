@@ -22,7 +22,7 @@ The little cards my grandma wrote the recipes on in her beautiful cursive are ge
 
 ### Frameworks and Libraries
 
-Front-End: React, React-Router Bootstrap, SaSS, Axios
+Front-End: React, React-Router, Bootstrap, SaSS, Axios
 
 Back-End: Node, Express, PostgreSQL, Knex, JSON Web Tokens
 
