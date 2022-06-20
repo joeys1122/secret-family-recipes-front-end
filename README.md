@@ -14,11 +14,9 @@ The little cards my grandma wrote the recipes on in her beautiful cursive are ge
 
 - On-boarding process for a new `user`
 
-- Ability to enter a new `recipe`, including `title`, `source` (ex: Grandma Ethel), `ingredients`, `instructions`, and `category` (dinner, chicken, dessert, pasta, etc) and edit or delete it later.
+- Ability to enter a new `recipe`, including `title`, `source` (ex: Grandma Ethel), `ingredients`, `instructions`, and `category` (dinner, chicken, dessert, pasta, etc) and edit or delete it later
 
-- Homepage to view all entered `recipes`.
-
-- Ability to search for `recipes` by `title` or tagged `categories`.
+- Homepage to view all entered `recipes`
 
 ### Frameworks and Libraries
 
